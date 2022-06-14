@@ -1,4 +1,4 @@
-se near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
+use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{near_bindgen, env};
 use near_sdk::serde::{Deserialize, Serialize};
 
@@ -149,3 +149,4 @@ mod tests {
 
     }
 }
+
