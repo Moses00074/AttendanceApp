@@ -23,7 +23,7 @@ pub struct Attendance {
 #[derive(Clone, BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate="near_sdk::serde")]
 pub struct Course{
-    courseId: u32,
+    course_id: u32,
     course_name: String,
     units: Vec<String>,
 }
@@ -53,7 +53,7 @@ impl Contract {
     pub fn add_course(&mut self, course_name: String){
         let id = self.courses.len() as u32;
         let new_course = Course {
-            courseId: id,
+            course_id: id,
             course_name: course_name.to_string(),
             units: vec![],
         };
