@@ -71,11 +71,19 @@ impl Contract {
         let mut counter = 0;
         courses.into_iter().for_each(|course|{
             if course.course_name == student_course{
+<<<<<<< HEAD
                  counter += 1;
             }
         });
 
         if  counter > 0{
+=======
+                counter += 1;
+            }
+        });
+
+        if counter > 0{
+>>>>>>> 46c4f3c8069d701ed2acdd5c9e712f7b700e442d
             let student1 = Student {
                     admission: admission.to_string(),
                     name: name.to_string(),
@@ -148,6 +156,7 @@ mod tests {
         assert_eq!(course1.get_course_length(), 1);
 
     }
+<<<<<<< HEAD
     #[test]
     #[ignore="incomplete test"]
     fn add_student (){
@@ -163,4 +172,6 @@ mod tests {
     }
     
     }
-
+=======
+}
+>>>>>>> 46c4f3c8069d701ed2acdd5c9e712f7b700e442dc
