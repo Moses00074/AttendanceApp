@@ -1,4 +1,4 @@
-se near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
+use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{near_bindgen, env};
 use near_sdk::serde::{Deserialize, Serialize};
 
@@ -23,7 +23,7 @@ pub struct Attendance {
 #[derive(Clone, BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate="near_sdk::serde")]
 pub struct Course{
-    courseId: u32,
+    course_id: u32,
     course_name: String,
     units: Vec<String>,
 }
@@ -53,7 +53,7 @@ impl Contract {
     pub fn add_course(&mut self, course_name: String){
         let id = self.courses.len() as u32;
         let new_course = Course {
-            courseId: id,
+            course_id: id,
             course_name: course_name.to_string(),
             units: vec![],
         };
@@ -71,11 +71,11 @@ impl Contract {
         let mut counter = 0;
         courses.into_iter().for_each(|course|{
             if course.course_name == student_course{
-                counter += 1;
+                 counter += 1;
             }
         });
 
-        if counter > 0{
+        if  counter > 0{
             let student1 = Student {
                     admission: admission.to_string(),
                     name: name.to_string(),
@@ -148,4 +148,19 @@ mod tests {
         assert_eq!(course1.get_course_length(), 1);
 
     }
-}
+    #[test]
+    #[ignore="incomplete test"]
+    fn add_student (){
+        let mose = AccountId::new_unchecked("moses.testnet".to_string());
+        let context = get_context(mose.clone());
+        testing_env!(context.build());
+
+        let mut added_student=Contract::new();
+        added_student.add_student("tmc/00075" ,"Silas", "2022", "computer Science" );
+        assert!(count("Student is added successfully"));
+    
+
+    }
+    
+    }
+
