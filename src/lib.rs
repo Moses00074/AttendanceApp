@@ -23,13 +23,13 @@ pub struct Attendance {
 #[derive(Clone, BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate="near_sdk::serde")]
 pub struct Course{
-    course_id: u32,
+    courseId: u32,
     course_name: String,
     units: Vec<String>,
 }
 
 #[near_bindgen]
-pub struct Contract {
+pub struct Contract{
     // SETUP CONTRACT STATE
     students: Vec<Student>,
     courses: Vec<Course>,
@@ -53,7 +53,7 @@ impl Contract {
     pub fn add_course(&mut self, course_name: String){
         let id = self.courses.len() as u32;
         let new_course = Course {
-            course_id: id,
+            courseId: id,
             course_name: course_name.to_string(),
             units: vec![],
         };
@@ -71,19 +71,11 @@ impl Contract {
         let mut counter = 0;
         courses.into_iter().for_each(|course|{
             if course.course_name == student_course{
-<<<<<<< HEAD
-                 counter += 1;
-            }
-        });
-
-        if  counter > 0{
-=======
                 counter += 1;
             }
         });
 
         if counter > 0{
->>>>>>> 46c4f3c8069d701ed2acdd5c9e712f7b700e442d
             let student1 = Student {
                     admission: admission.to_string(),
                     name: name.to_string(),
@@ -96,7 +88,12 @@ impl Contract {
         }else{
             env::log_str("course not found")
         }
-    }   
+       
+    } 
+    pub fn get_stude_length(&self)->usize{
+        self.courses.len()
+    }
+
 
     // monitor attendance
     pub fn monitor_attendance(&mut self, admission: String, date: String, attended: String){
@@ -131,10 +128,12 @@ impl Contract {
 
 // use the attribute below for unit tests
 #[cfg(test)]
+
 mod tests {
     use super::*;
     use near_sdk::test_utils::{get_logs, VMContextBuilder};
     use near_sdk::{testing_env, AccountId};
+    
 
     // part of writing unit tests is setting up a mock context
     // provide a `predecessor` here, it'll modify the default context
@@ -147,7 +146,7 @@ mod tests {
     // TESTS HERE
     #[test]
     fn add_course(){
-        let mose = AccountId::new_unchecked("moses.testnet".to_string());
+        pub let mose = AccountId::new_unchecked("moses.testnet".to_string());
         let context = get_context(mose.clone());
         testing_env!(context.build());
 
@@ -156,22 +155,34 @@ mod tests {
         assert_eq!(course1.get_course_length(), 1);
 
     }
-<<<<<<< HEAD
     #[test]
-    #[ignore="incomplete test"]
-    fn add_student (){
+    
+    fn add_student(){
+        let mose = AccountId::new_unchecked("moses.testnet".to_string());
+        let context = get_context(mose.clone());
+        testing_env!(context.build());
+        
+        let mut course1 = Contract::new();
+        course1.add_student("tmc/0074/019", "moses","2022", "ICT");
+        assert_eq!(course1.get_student_length(),1)
+
+    }
+#[test]
+ fn monitor_attendance(){
         let mose = AccountId::new_unchecked("moses.testnet".to_string());
         let context = get_context(mose.clone());
         testing_env!(context.build());
 
-        let mut added_student=Contract::new();
-        added_student.add_student("tmc/00075" ,"Silas", "2022", "computer Science" );
-        assert!(count("Student is added successfully"));
-    
+        let mut course1 = Contract::new();
+        course1.monitor_attendance("tmc/0074/019", ,"2022", "ICT");
+        assert
+
+        
+
+ }
+
 
     }
-    
-    }
-=======
-}
->>>>>>> 46c4f3c8069d701ed2acdd5c9e712f7b700e442dc
+
+
+
